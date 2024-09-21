@@ -46,7 +46,7 @@ def create_and_open_txt(text, filename):
         file.write(text)
     startfile(filename)
 
-st.set_page_config(page_title="Download Audio", page_icon="🎵", layout="centered", initial_sidebar_state="collapsed")
+#st.set_page_config(page_title="Download Audio", page_icon="🎵", layout="centered", initial_sidebar_state="collapsed")
 
 @st.cache_data(show_spinner=False)
 def to_audio_mod(url):
@@ -58,7 +58,7 @@ def to_audio_mod(url):
     return default_filename, buffer
 
 # Function to convert to audio
-def to_audio(url):
+def download_audio_to_buffer(url):
     # Create a YouTube object from the URL
     yt = YouTube(url, on_progress_callback = on_progress)
     st.warning('Checkpint in to_audio #1')
