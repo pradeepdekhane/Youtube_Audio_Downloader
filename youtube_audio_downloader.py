@@ -45,12 +45,15 @@ def create_and_open_txt(text, filename):
 def to_audio(url):
     # Create a YouTube object from the URL
     yt = YouTube(url, on_progress_callback = on_progress)
+    st.warning('Checkpint in to_audio #1')
     audio_stream = yt.streams.get_audio_only()
+    st.warning('Checkpint in to_audio #2')
     
     # Download the audio stream
     #output_path = "Youtube_Audios"
     filename = yt.title + ".mp3"
     audio_stream.download(filename=filename)
+    st.warning('Checkpint in to_audio #3')
     return filename
 
 
