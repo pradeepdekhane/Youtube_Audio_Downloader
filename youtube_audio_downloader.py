@@ -54,10 +54,10 @@ def download_audio_to_buffer(url):
     youtube_video = YouTube(url)
     st.warning('Checkpint in download_audio_to_buffer #1')
     audio = youtube_video.streams.get_audio_only()
-    st.warning('Checkpint in download_audio_to_buffer #1')
+    st.warning('Checkpint in download_audio_to_buffer #2')
     default_filename = audio.default_filename
     audio.stream_to_buffer(buffer)
-    st.warning('Checkpint in download_audio_to_buffer #1')
+    st.warning('Checkpint in download_audio_to_buffer #3')
     return default_filename, buffer
 
 # Function to convert to audio
