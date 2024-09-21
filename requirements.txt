@@ -1,13 +1,4 @@
-st-annotated-text
-highlight_text==0.2
-nltk
-transformers==4.19.0
 ffmpeg-python
-librosa==0.9.1
 youtube_dl==2021.12.17
-numba==0.56.4
 streamlit==1.9.0
-httplib2==0.20.2
-sentencepiece==0.1.96
-tokenizers==0.12.1
 git+https://github.com/openai/whisper.git
