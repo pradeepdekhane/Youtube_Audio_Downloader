@@ -7,8 +7,13 @@ Created on 24-Sep-2024
 import os
 
 import whisper
-from pytubefix import YouTube
+#from pytubefix import YouTube
 from pytubefix.cli import on_progress
+
+from io import BytesIO
+from pathlib import Path
+
+from pytube import YouTube
 
 import streamlit as st
 import pandas as pd
