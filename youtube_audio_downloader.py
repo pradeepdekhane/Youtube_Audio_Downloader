@@ -70,9 +70,13 @@ def main():
 
     if st.button("Convert"):
         try:
+            st.warning('Checkpint #1')
             file_title=to_audio(url)
+            st.warning('Checkpint #2')
             st.success('The file {} is converted to mp3'.format(file_title))
+            st.warning('Checkpint #3')
             st.audio(f"{file_title}", format="audio/mp3", loop=True)
+            st.warning('Checkpint #4')
             
             with open(f"{file_title}", "rb") as f:
 
