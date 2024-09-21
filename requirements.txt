@@ -1,3 +1,4 @@
+pytubefix==6.16.3
 ffmpeg-python
 youtube_dl==2021.12.17
 streamlit==1.9.0
