@@ -48,7 +48,7 @@ def create_and_open_txt(text, filename):
 
 #st.set_page_config(page_title="Download Audio", page_icon="🎵", layout="centered", initial_sidebar_state="collapsed")
 
-@st.cache_data(show_spinner=False)
+#@st.cache_data(show_spinner=False)
 def to_audio_mod(url):
     buffer = BytesIO()
     youtube_video = YouTube(url)
