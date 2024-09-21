@@ -41,6 +41,17 @@ def create_and_open_txt(text, filename):
         file.write(text)
     startfile(filename)
 
+st.set_page_config(page_title="Download Audio", page_icon="🎵", layout="centered", initial_sidebar_state="collapsed")
+
+@st.cache_data(show_spinner=False)
+def to_audio_mod(url):
+    buffer = BytesIO()
+    youtube_video = YouTube(url)
+    audio = youtube_video.streams.get_audio_only()
+    default_filename = audio.default_filename
+    audio.stream_to_buffer(buffer)
+    return default_filename, buffer
+
 # Function to convert to audio
 def to_audio(url):
     # Create a YouTube object from the URL
@@ -73,17 +84,17 @@ def main():
 
     if st.button("Convert"):
         try:
-            st.warning('Checkpint #1')
-            file_title=to_audio(url)
-            st.warning('Checkpint #2')
+            with st.spinner("Downloading Audio Stream from Youtube..."):
+                default_filename, buffer = download_audio_to_buffer(url)
+                st.subheader("Title")
+                st.write(default_filename)
             st.success('The file {} is converted to mp3'.format(file_title))
-            st.warning('Checkpint #3')
-            st.audio(f"{file_title}", format="audio/mp3", loop=True)
-            st.warning('Checkpint #4')
-            
-            with open(f"{file_title}", "rb") as f:
 
-                st.download_button('Download Audio', f, file_name=f"{file_title}")
+            st.audio(f"{buffer}", format="audio/mp3", loop=True)
+            
+            with open(f"{buffer}", "rb") as f:
+
+                st.download_button('Download Audio', f, file_name=f"{buffer}")
             
         except:
             st.warning('Enter the correct URL')
