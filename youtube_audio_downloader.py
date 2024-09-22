@@ -43,7 +43,7 @@ def main():
     st.title("YouTube Audio Downloader")
     
     html_temp = """
-    <div style="background-color:Blue;padding:8px">
+    <div style="background-color:tomato;padding:8px">
     <h2 style="color:white;text-align:center;">Youtube Video to Audio Converter </h2>
     </div>
     """
