@@ -29,8 +29,19 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+# Function to open a file
+def startfile(fn):
+    os.system('open %s' % fn)
+
+
+# Function to create and open a txt file
+def create_and_open_txt(text, filename):
+    # Create and write the text to a txt file
+    with open(filename, "w") as file:
+        file.write(text)
+    startfile(filename)
+
 # Function to convert to audio
-@st.cache_data
 def download_audio_to_buffer(url):
     buffer = BytesIO()
     youtube_video = YouTube(url)
