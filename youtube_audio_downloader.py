@@ -9,7 +9,7 @@ from io import BytesIO
 from pathlib import Path
 
 import whisper
-from pytube import YouTube
+from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 import streamlit as st
