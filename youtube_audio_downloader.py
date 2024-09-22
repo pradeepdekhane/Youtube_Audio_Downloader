@@ -16,21 +16,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# center button in sidebar
-st.markdown(
-    """
-    <style>
-        [data-testid=stSidebar] [data-testid=stButton]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
-
 # Function to convert to audio
 def download_audio_to_buffer(url):
     buffer = BytesIO()
@@ -56,7 +41,7 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        try:
+
             default_filename, buffer = download_audio_to_buffer(url)
             st.text("#1")
         
@@ -69,9 +54,7 @@ def main():
             st.audio(buffer, format='audio/mp3')
             
             st.download_button(label="Download mp3",data=buffer,file_name=title_vid,mime="audio/mp3")
-        except:
-            st.warning('Enter the correct URL')
-            st.warning('If URL is correct : contact pradeepdekhane@gmail.com for support')
+
 
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
