@@ -69,17 +69,16 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        try:
             file_title=to_audio(url)
             st.success('The file {} is converted to mp3'.format(file_title))
+            st.text("Chekc #1")
             st.audio(f"{file_title}", format="audio/mp3", loop=True)
+            st.text("Chekc #2")
             
             with open(f"{file_title}", "rb") as f:
 
                 st.download_button('Download Audio', f, file_name=f"{file_title}")
-            
-        except:
-            st.warning('Enter the correct URL')
+
     
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
