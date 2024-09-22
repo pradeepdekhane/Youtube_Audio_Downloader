@@ -39,16 +39,11 @@ def main():
 
     if st.button("Convert"):
             buffer = BytesIO()
-            st.text("P1")
             youtube_video = YouTube(url)
-            st.text("P2")
             audio = youtube_video.streams.get_audio_only()
-            st.text("P3")
             default_filename = audio.default_filename
             audio.stream_to_buffer(buffer)
-            st.text("P4")
             default_filename, buffer = download_audio_to_buffer(url)
-            st.text("P1")
         
             st.success('The file {} is converted to mp3'.format(default_filename))
         
