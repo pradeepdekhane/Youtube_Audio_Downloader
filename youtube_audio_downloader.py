@@ -5,6 +5,8 @@ Created on 24-Sep-2024
 
 # import required modules
 import os
+from io import BytesIO
+from pathlib import Path
 
 import whisper
 from pytubefix import YouTube
@@ -42,16 +44,13 @@ def create_and_open_txt(text, filename):
     startfile(filename)
 
 # Function to convert to audio
-def to_audio(url):
-    # Create a YouTube object from the URL
-    yt = YouTube(url, on_progress_callback = on_progress)
-    audio_stream = yt.streams.get_audio_only()
-    
-    # Download the audio stream
-    #output_path = "Youtube_Audios"
-    filename = yt.title + ".mp3"
-    audio_stream.download(filename=filename)
-    return filename
+def download_audio_to_buffer(url):
+    buffer = BytesIO()
+    youtube_video = YouTube(url)
+    audio = youtube_video.streams.get_audio_only()
+    default_filename = audio.default_filename
+    audio.stream_to_buffer(buffer)
+    return default_filename, buffer
 
 
 def main():
@@ -69,16 +68,20 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-            file_title=to_audio(url)
-            st.success('The file {} is converted to mp3'.format(file_title))
-            st.text("Chekc #1")
-            st.audio(f"{file_title}", format="audio/mp3", loop=True)
-            st.text("Chekc #2")
+        try:
+            default_filename, buffer = download_audio_to_buffer(url)
+            st.success('The file {} is converted to mp3'.format(default_filename))
+            title_vid = Path(default_filename).with_suffix(".mp3").name
+            st.audio(buffer, format="audio/mp3", loop=True)
             
-            with open(f"{file_title}", "rb") as f:
-
-                st.download_button('Download Audio', f, file_name=f"{file_title}")
-
+            st.download_button(
+            label="Download mp3",
+            data=buffer,
+            file_name=title_vid,
+            mime="audio/mpeg")
+            
+        except:
+            st.warning('Enter the correct URL')
     
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
