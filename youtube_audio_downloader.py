@@ -7,13 +7,8 @@ Created on 24-Sep-2024
 import os
 
 import whisper
-#from pytubefix import YouTube
+from pytubefix import YouTube
 from pytubefix.cli import on_progress
-
-from io import BytesIO
-from pathlib import Path
-
-from pytube import YouTube
 
 import streamlit as st
 import pandas as pd
@@ -46,53 +41,49 @@ def create_and_open_txt(text, filename):
         file.write(text)
     startfile(filename)
 
-#st.set_page_config(page_title="Download Audio", page_icon="🎵", layout="centered", initial_sidebar_state="collapsed")
-
-#@st.cache_data(show_spinner=False)
-def download_audio_to_buffer(url):
-    buffer = BytesIO()
-    youtube_video = YouTube(url)
-    st.warning('Checkpint in download_audio_to_buffer #1')
-    audio = youtube_video.streams.get_audio_only()
-    st.warning('Checkpint in download_audio_to_buffer #2')
-    default_filename = audio.default_filename
-    audio.stream_to_buffer(buffer)
-    st.warning('Checkpint in download_audio_to_buffer #3')
-    return default_filename, buffer
-
 # Function to convert to audio
 def to_audio(url):
     # Create a YouTube object from the URL
     yt = YouTube(url, on_progress_callback = on_progress)
-    st.warning('Checkpint in to_audio #1')
     audio_stream = yt.streams.get_audio_only()
-    st.warning('Checkpint in to_audio #2')
     
     # Download the audio stream
     #output_path = "Youtube_Audios"
     filename = yt.title + ".mp3"
     audio_stream.download(filename=filename)
-    st.warning('Checkpint in to_audio #3')
     return filename
 
 
 def main():
-    st.title("Download Audio from Youtube")
-    url = st.text_input("Insert Youtube URL:")
-    if url:
-        with st.spinner("Downloading Audio Stream from Youtube..."):
-            default_filename, buffer = download_audio_to_buffer(url)
-        st.subheader("Title")
-        st.write(default_filename)
-        title_vid = Path(default_filename).with_suffix(".mp3").name
-        st.subheader("Listen to Audio")
-        st.audio(buffer, format='audio/mpeg')
-        st.subheader("Download Audio File")
-        st.download_button(
-            label="Download mp3",
-            data=buffer,
-            file_name=title_vid,
-            mime="audio/mpeg")
-        
+    st.title("YouTube Audio Downloader")
+    
+    html_temp = """
+    <div style="background-color:tomato;padding:10px">
+    <h2 style="color:white;text-align:center;">Youtube Video to Audio Converter </h2>
+    </div>
+    """
+    st.markdown(html_temp,unsafe_allow_html=True)
+  
+    url = st.text_input("Enter Youtube URL","Type Here")
+    
+    file_title=''
+
+    if st.button("Convert"):
+        try:
+            file_title=to_audio(url)
+            st.success('The file {} is converted to mp3'.format(file_title))
+            st.audio(f"{file_title}", format="audio/mp3", loop=True)
+            
+            with open(f"{file_title}", "rb") as f:
+
+                st.download_button('Download Audio', f, file_name=f"{file_title}")
+            
+        except:
+            st.warning('Enter the correct URL')
+    
+    if st.button("About"):
+        st.text("Demo to convert youtube Video to mp3")
+        st.text("Built with Streamlit")
+
 if __name__=='__main__':
     main()
