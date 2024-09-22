@@ -68,21 +68,24 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        try:
-            default_filename, buffer = download_audio_to_buffer(url)
-            st.success('The file {} is converted to mp3'.format(default_filename))
-            title_vid = Path(default_filename).with_suffix(".mp3").name
-            st.audio(buffer, format="audio/mp3", loop=True)
+        default_filename, buffer = download_audio_to_buffer(url)
+        st.text("Test Point #1")
+        
+        st.success('The file {} is converted to mp3'.format(default_filename))
+        st.text("Test Point #2")
+        
+        title_vid = Path(default_filename).with_suffix(".mp3").name
+        st.text("Test Point #3")
+        
+        st.audio(buffer, format='audio/mpeg')
+        st.text("Test Point #4")
             
-            st.download_button(
+        st.download_button(
             label="Download mp3",
             data=buffer,
             file_name=title_vid,
             mime="audio/mpeg")
-            
-        except:
-            st.warning('Enter the correct URL')
-    
+
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
         st.text("Built with Streamlit")
