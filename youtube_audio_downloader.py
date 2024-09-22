@@ -5,59 +5,14 @@ Created on 24-Sep-2024
 
 # import required modules
 import os
-
 from io import BytesIO
 from pathlib import Path
-
 import whisper
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
-
 import streamlit as st
 import pandas as pd
 import numpy as np
-
-# center button in sidebar
-st.markdown(
-    """
-    <style>
-        [data-testid=stSidebar] [data-testid=stButton]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
-
-# Function to open a file
-def startfile(fn):
-    os.system('open %s' % fn)
-
-
-# Function to create and open a txt file
-def create_and_open_txt(text, filename):
-    # Create and write the text to a txt file
-    with open(filename, "w") as file:
-        file.write(text)
-    startfile(filename)
-
-# center button in sidebar
-st.markdown(
-    """
-    <style>
-        [data-testid=stSidebar] [data-testid=stButton]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
 
 # Function to convert to audio
 def download_audio_to_buffer(url):
@@ -67,7 +22,6 @@ def download_audio_to_buffer(url):
     default_filename = audio.default_filename
     audio.stream_to_buffer(buffer)
     return default_filename, buffer
-
 
 def main():
     st.title("YouTube Audio Downloader")
