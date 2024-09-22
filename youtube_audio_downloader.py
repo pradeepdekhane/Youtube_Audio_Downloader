@@ -29,18 +29,6 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Function to open a file
-def startfile(fn):
-    os.system('open %s' % fn)
-
-
-# Function to create and open a txt file
-def create_and_open_txt(text, filename):
-    # Create and write the text to a txt file
-    with open(filename, "w") as file:
-        file.write(text)
-    startfile(filename)
-
 # Function to convert to audio
 def download_audio_to_buffer(url):
     buffer = BytesIO()
@@ -83,6 +71,11 @@ def main():
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
         st.text("Built with Streamlit")
+
+    with st.sidebar:
+                st.markdown("""STEP1 : Enter Youtube URL""")
+                st.markdown("""STEP2 : Click on Convert Button""")
+                st.markdown("""STEP3 : Play audio or click Download to save the file""")
 
 if __name__=='__main__':
     main()
