@@ -75,13 +75,15 @@ def main():
     with st.sidebar:
         html_sidebar = """
             <div style="background-color:white;padding:4px">
-            <h2 style="color:Green;text-align:center;">STEP1</h2>
+            <h2 style="color:black;text-align:center;">STEP1</h2>
             <h2 style="color:Green;text-align:center;">Enter Youtube URL</h2>
+            <h2 style="color:black;text-align:center;">STEP2</h2>
+            <h2 style="color:Green;text-align:center;">Click on Convert Button</h2>
+            <h2 style="color:black;text-align:center;">STEP3</h2>
+            <h2 style="color:Green;text-align:center;">Play audio or click Download to save the file</h2>
             </div>
             """
         st.markdown(html_sidebar,unsafe_allow_html=True)
-        st.markdown("""STEP2 : Click on Convert Button""")
-        st.markdown("""STEP3 : Play audio or click Download to save the file""")
 
 if __name__=='__main__':
     main()
