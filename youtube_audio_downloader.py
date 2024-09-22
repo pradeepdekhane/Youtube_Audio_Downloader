@@ -66,19 +66,19 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        default_filename, buffer = download_audio_to_buffer(url)
+        try:
+            default_filename, buffer = download_audio_to_buffer(url)
         
-        st.success('The file {} is converted to mp3'.format(default_filename))
+            st.success('The file {} is converted to mp3'.format(default_filename))
         
-        title_vid = Path(default_filename).with_suffix(".mp3").name
+            title_vid = Path(default_filename).with_suffix(".mp3").name
         
-        st.audio(buffer, format='audio/mpeg')
+            st.audio(buffer, format='audio/mp3')
             
-        st.download_button(
-            label="Download mp3",
-            data=buffer,
-            file_name=title_vid,
-            mime="audio/mpeg")
+            st.download_button(label="Download mp3",data=buffer,file_name=title_vid,mime="audio/mp3")
+        except:
+            st.warning('Enter the correct URL')
+            st.warning('If URL is correct : contact pradeepdekhane@gmail.com for support')
 
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
