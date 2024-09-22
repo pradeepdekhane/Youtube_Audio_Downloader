@@ -73,7 +73,13 @@ def main():
         st.text("Built with Streamlit")
 
     with st.sidebar:
-                st.markdown("""STEP1 : Enter Youtube URL""")
+        html_temp = """
+    <div style="background-color:white;padding:4px">
+    <h2 style="color:Green;text-align:center;">STEP1</h2>
+    <h2 style="color:Green;text-align:center;">Enter Youtube URL</h2>
+    </div>
+    """
+    st.markdown(html_temp,unsafe_allow_html=True)
                 st.markdown("""STEP2 : Click on Convert Button""")
                 st.markdown("""STEP3 : Play audio or click Download to save the file""")
 
