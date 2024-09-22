@@ -67,16 +67,12 @@ def main():
 
     if st.button("Convert"):
         default_filename, buffer = download_audio_to_buffer(url)
-        st.text("Test Point #1")
         
         st.success('The file {} is converted to mp3'.format(default_filename))
-        st.text("Test Point #2")
         
         title_vid = Path(default_filename).with_suffix(".mp3").name
-        st.text("Test Point #3")
         
         st.audio(buffer, format='audio/mpeg')
-        st.text("Test Point #4")
             
         st.download_button(
             label="Download mp3",
