@@ -72,14 +72,13 @@ def main():
         st.text("Demo to convert youtube Video to mp3")
         st.text("Built with Streamlit")
 
-html_sidebar = """
-    <div style="background-color:white;padding:4px">
-    <h2 style="color:Green;text-align:center;">STEP1</h2>
-    <h2 style="color:Green;text-align:center;">Enter Youtube URL</h2>
-    </div>
-    """
-
     with st.sidebar:
+        html_sidebar = """
+            <div style="background-color:white;padding:4px">
+            <h2 style="color:Green;text-align:center;">STEP1</h2>
+            <h2 style="color:Green;text-align:center;">Enter Youtube URL</h2>
+            </div>
+            """
         st.markdown(html_sidebar,unsafe_allow_html=True)
         st.markdown("""STEP2 : Click on Convert Button""")
         st.markdown("""STEP3 : Play audio or click Download to save the file""")
