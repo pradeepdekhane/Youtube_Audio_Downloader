@@ -13,8 +13,6 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 import streamlit as st
-import pandas as pd
-import numpy as np
 
 # center button in sidebar
 st.markdown(
@@ -30,18 +28,6 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-
-# Function to open a file
-def startfile(fn):
-    os.system('open %s' % fn)
-
-
-# Function to create and open a txt file
-def create_and_open_txt(text, filename):
-    # Create and write the text to a txt file
-    with open(filename, "w") as file:
-        file.write(text)
-    startfile(filename)
 
 # Function to convert to audio
 def download_audio_to_buffer(url):
@@ -68,7 +54,11 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        default_filename, buffer = download_audio_to_buffer(url)
+        buffer = BytesIO()
+        youtube_video = YouTube(url)
+        audio = youtube_video.streams.get_audio_only()
+        default_filename = audio.default_filename
+        audio.stream_to_buffer(buffer)
         st.text("Test Point #1")
         
         st.success('The file {} is converted to mp3'.format(default_filename))
