@@ -58,10 +58,13 @@ def main():
     if st.button("Convert"):
         try:
             default_filename, buffer = download_audio_to_buffer(url)
+            st.text("#1")
         
             st.success('The file {} is converted to mp3'.format(default_filename))
+            st.text("#2")
         
             title_vid = Path(default_filename).with_suffix(".mp3").name
+            st.text("#3")
         
             st.audio(buffer, format='audio/mp3')
             
