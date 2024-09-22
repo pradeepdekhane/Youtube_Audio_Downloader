@@ -1,4 +1,18 @@
-"""
+    if st.button("Convert"):
+        try:
+            default_filename, buffer = download_audio_to_buffer(url)
+        
+            st.success('The file {} is converted to mp3'.format(default_filename))
+        
+            title_vid = Path(default_filename).with_suffix(".mp3").name
+        
+            st.audio(buffer, format='audio/mp3')
+            
+            st.download_button(label="Download mp3",data=buffer,file_name=title_vid,mime="audio/mp3")
+        except:
+            st.warning('Enter the correct URL')
+            st.warning('If URL is correct : contact pradeepdekhane@gmail.com for support')
+       """
 Created on 24-Sep-2024
 @author: Pradeep Dekhane
 """
@@ -13,8 +27,6 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 import streamlit as st
-import pandas as pd
-import numpy as np
 
 # center button in sidebar
 st.markdown(
@@ -31,18 +43,6 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Function to open a file
-def startfile(fn):
-    os.system('open %s' % fn)
-
-
-# Function to create and open a txt file
-def create_and_open_txt(text, filename):
-    # Create and write the text to a txt file
-    with open(filename, "w") as file:
-        file.write(text)
-    startfile(filename)
-
 # Function to convert to audio
 def download_audio_to_buffer(url):
     buffer = BytesIO()
@@ -57,7 +57,7 @@ def main():
     st.title("YouTube Audio Downloader")
     
     html_temp = """
-    <div style="background-color:tomato;padding:10px">
+    <div style="background-color:tomato;padding:8px">
     <h2 style="color:white;text-align:center;">Youtube Video to Audio Converter </h2>
     </div>
     """
@@ -68,27 +68,36 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        default_filename, buffer = download_audio_to_buffer(url)
-        st.text("Test Point #1")
+        try:
+            default_filename, buffer = download_audio_to_buffer(url)
         
-        st.success('The file {} is converted to mp3'.format(default_filename))
-        st.text("Test Point #2")
+            st.success('The file {} is converted to mp3'.format(default_filename))
         
-        title_vid = Path(default_filename).with_suffix(".mp3").name
-        st.text("Test Point #3")
+            title_vid = Path(default_filename).with_suffix(".mp3").name
         
-        st.audio(buffer, format='audio/mpeg')
-        st.text("Test Point #4")
+            st.audio(buffer, format='audio/mp3')
             
-        st.download_button(
-            label="Download mp3",
-            data=buffer,
-            file_name=title_vid,
-            mime="audio/mpeg")
+            st.download_button(label="Download mp3",data=buffer,file_name=title_vid,mime="audio/mp3")
+        except:
+            st.warning('Enter the correct URL')
+            st.warning('If URL is correct : contact pradeepdekhane@gmail.com for support')
 
     if st.button("About"):
         st.text("Demo to convert youtube Video to mp3")
         st.text("Built with Streamlit")
+
+    with st.sidebar:
+        html_sidebar = """
+            <div style="background-color:white;padding:4px">
+            <h2 style="color:black;text-align:center;">STEP1</h2>
+            <h2 style="color:Green;text-align:center;">Enter Youtube URL</h2>
+            <h2 style="color:black;text-align:center;">STEP2</h2>
+            <h2 style="color:Green;text-align:center;">Click on Convert Button</h2>
+            <h2 style="color:black;text-align:center;">STEP3</h2>
+            <h2 style="color:Green;text-align:center;">Play audio or click Download to save the file</h2>
+            </div>
+            """
+        st.markdown(html_sidebar,unsafe_allow_html=True)
 
 if __name__=='__main__':
     main()
