@@ -30,6 +30,7 @@ st.markdown(
 )
 
 # Function to convert to audio
+@st.cache_data
 def download_audio_to_buffer(url):
     buffer = BytesIO()
     youtube_video = YouTube(url)
@@ -54,11 +55,7 @@ def main():
     file_title=''
 
     if st.button("Convert"):
-        buffer = BytesIO()
-        youtube_video = YouTube(url)
-        audio = youtube_video.streams.get_audio_only()
-        default_filename = audio.default_filename
-        audio.stream_to_buffer(buffer)
+        default_filename, buffer = download_audio_to_buffer(url)
         st.text("Test Point #1")
         
         st.success('The file {} is converted to mp3'.format(default_filename))
