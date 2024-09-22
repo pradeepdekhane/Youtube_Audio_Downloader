@@ -1,5 +1,4 @@
 pathlib
-streamlit==1.9.0
 git+https://github.com/openai/whisper.git
 streamlit
 streamlit-option-menu
